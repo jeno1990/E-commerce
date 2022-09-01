@@ -86,7 +86,7 @@ const Footer = () => {
           <IconWrapper>
             <Instagram />
           </IconWrapper>
-          <IconWrapper>
+            <IconWrapper>
             <Twitter />
           </IconWrapper>
           <IconWrapper>

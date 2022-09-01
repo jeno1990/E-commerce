@@ -1,4 +1,4 @@
-export const ProductList = [
+const ProductList = [
   {
     id: 1,
     img: "https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png",
@@ -46,10 +46,10 @@ export const ProductList = [
   {
     id: 12,
     img: "https://www.burdastyle.com/pub/media/catalog/product/cache/7bd3727382ce0a860b68816435d76e26/107/BUS-PAT-BURTE-1320516/1170x1470_BS_2016_05_132_front.png",
-  }
+  },
 ];
 
-export const CartList = [
+const CartList = [
   {
     id: 9,
     img: "https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png",
@@ -83,3 +83,7 @@ export const CartList = [
     title: "Indian jeans",
   },
 ];
+module.exports = {
+  CartList,
+  ProductList
+}

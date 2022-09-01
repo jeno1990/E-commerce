@@ -1,5 +1,7 @@
 const Product = require("./../model/Products");
+const pro = require('../productscopy')
 
+//add a product
 const AddProduct = async (body) => {
   const product = new Product({
     title: body.title,
@@ -21,7 +23,12 @@ const getProduct = async (id) => {
   const product = Product.findById(id);
   return product;
 };
+//add multiple products ones
 
+const addProducts = async (body)=>{
+  const added_products = await Product.insertMany(body);
+  return added_products
+}
 //more than one product
 const getProducts = async (bynewp, DefinedCatagory) => {
   let productsArray;
@@ -36,6 +43,7 @@ const getProducts = async (bynewp, DefinedCatagory) => {
   } else {
     productsArray = await Product.find();
   }
+  // console.log(productsArray)
   return productsArray;
 };
-module.exports = { AddProduct, deleteProduct, getProduct, getProducts };
+module.exports = { AddProduct, deleteProduct, getProduct, getProducts ,addProducts};

@@ -32,13 +32,17 @@ const Options = styled.option`
 
 `
 const ProductList = () => {
+
   const location = useLocation();
   let catagory = location.pathname.split("/")[2];
+
   const [sort , setSort] = useState('newest');
   const [filter , setFilter] = useState({});
+
   const handleSort = (e) =>{
     setSort(e.target.value);
   }
+
   const handleFilters = (e) =>{
     const value = e.target.value;
     setFilter({
@@ -46,15 +50,20 @@ const ProductList = () => {
       [e.target.name]:value
     })
   }
-  console.log(filter)
+  // console.log('productList.js')
+  // console.log(filter)
+  // console.log('check for catagory productList', catagory)
   return (
     <Container>
       <Navbar />
       <Announcment />
       <Title>Dresses</Title>
       <FilterContainer>
+        
         <Filter>
+
           <FilterText>Filter Products</FilterText>
+
           <Select name="color" onChange={handleFilters}>
             <Options disabled selected>Color</Options>
             <Options>white</Options>
@@ -63,6 +72,7 @@ const ProductList = () => {
             <Options>yellow</Options>
             <Options>pink</Options>
           </Select>
+
           <Select name="size" onChange={handleFilters}>
             <Options disabled selected>Size</Options>
             <Options>x</Options>
@@ -70,7 +80,9 @@ const ProductList = () => {
             <Options>l</Options>
             <Options>xl</Options>
           </Select>
+
         </Filter>
+
         <Filter>
           <FilterText>Sort Products</FilterText>
           <Select onChange={handleSort}>
@@ -80,8 +92,10 @@ const ProductList = () => {
             
           </Select>
         </Filter>
+
       </FilterContainer>
-      <Products cat={catagory} filter = {filter} sort={sort}/>
+      {/* <div>{JSON.stringify(filter)}</div> */}
+      <Products catagory={catagory} filter = {filter} sort={sort}/>
       <Newsletter />
       <Footer />
     </Container>

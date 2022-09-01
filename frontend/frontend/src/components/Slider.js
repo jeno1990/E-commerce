@@ -28,6 +28,7 @@ const Arrow = styled.div`
   opacity: 0.75;
   background-color: orange;
 `;
+
 const Wrapper = styled.div`
   height: 100%;
   background-color: ${(props) => props.bg};

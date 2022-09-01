@@ -18,6 +18,22 @@ route.post("/addproduct", middleware.VerfyAdmin, async (req, res) => {
   }
 });
 
+//add multiple products
+
+route.post("/add_mul_products", middleware.VerfyAdmin, async (req, res) => {
+  const body = req.body;
+  if (!body) {
+    return res.status(400).json({ msg: "bad request" });
+  }
+  try {
+    const savedProduct = await productDatabase.addProducts(body);
+    res.status(200).json(savedProduct);
+  } catch (error) {
+    res.status(500).json({ msg: "Internal server error" });
+  }
+});
+
+
 //Delete products
 route.post("/deleteproduct/:id", middleware.VerfyAdmin, async (req, res) => {
   const id = req.params["id"];
@@ -42,13 +58,17 @@ route.get("/getproduct/:id", async (req, res) => {
 
 //Get product
 route.get("/getproducts", async (req, res) => {
+
+    // console.log("inside products page");
+    
     const newp = req.query.new;
     const catagory = req.query.catagory;
     try {
       const product = await productDatabase.getProducts(newp , catagory);
+      // console.log(product)
       res.status(200).json(product);
     } catch (error) {
-        console.log(error)
+      console.log(error)
       res.status(500).json({ msg: "Internal server error" });
     }
   });

@@ -10,6 +10,11 @@ const auth = require("./Routes/auth");
 dotenv.config();
 const app = express();
 
+const cors = require('cors');
+app.use(cors({
+    origin: '*'
+}));
+
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {

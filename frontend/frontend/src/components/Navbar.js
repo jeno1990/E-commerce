@@ -2,6 +2,7 @@ import { Search, ShoppingCart, ShoppingCartOutlined } from "@mui/icons-material"
 import { Badge } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 // import SearchIcon from '@mui/icons-material/Search';
 
 const Container = styled.div`
@@ -66,8 +67,8 @@ const Navbar = () => {
           <Logo>Jeno</Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          <Link to = '/register'><MenuItem>REGISTER</MenuItem></Link>
+          <Link to = '/login'><MenuItem>SIGN IN</MenuItem></Link>
           <MenuItem>
             <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlined />

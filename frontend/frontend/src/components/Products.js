@@ -8,8 +8,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   margin: 0 40px;
 `;
-const Products = (catagory, filter, sort) => {
-  // console.log(catagory , filter , sort);
+const Products = ({catagory, filter, sort}) => {
 
   const [ProductL, setProducts] = useState([]);
   const [FilteredProducts, setFilteredProducts] = useState([]);
@@ -17,14 +16,13 @@ const Products = (catagory, filter, sort) => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        console.log(catagory["cat"]);
         const res = await axios.get(
           catagory
-            ? `http://localhost:5000/products/getproducts/?catagory=${catagory["cat"]}`
-            : "http://localhost:5000/products/getproducts"
+            ? `http://localhost:5000/products/getproducts/?catagory=${catagory}`:
+             "http://localhost:5000/products/getproducts"
         );
         setProducts(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (error) {
         console.log(error);
       }
@@ -37,17 +35,17 @@ const Products = (catagory, filter, sort) => {
     () => {
       catagory &&
         setFilteredProducts(
-          ProductL.filter((item) =>
-            Object.entries(filter).every(([key, value]) =>
-              item[key].includes(value)
-            )
-          )
+          ProductL.filter(function(item){
+            return filter.color || filter.size ? (item.color === filter.color) && (item.size===filter.size): true
+          })
         );
+        // console.log(filter)
+        // console.log("---------------------filtering use effect (products.js)-----------")
     },
     [ ProductL, catagory, filter ]
   );
-  console.log("filtered")
-  console.log( FilteredProducts)
+  // console.log("filtered")
+  // console.log( FilteredProducts)
   return (
     <Container>
       {FilteredProducts.map((product) => (
