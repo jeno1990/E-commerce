@@ -1,8 +1,9 @@
-import { Search, ShoppingCart, ShoppingCartOutlined } from "@mui/icons-material";
+import { Search, ShoppingCartOutlined } from "@mui/icons-material";
 import { Badge } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 // import SearchIcon from '@mui/icons-material/Search';
 
 const Container = styled.div`
@@ -45,6 +46,7 @@ const Input = styled.input`
 
 const Logo = styled.h1`
   font-weight: bold;
+  color:green;
 `;
 
 const MenuItem = styled.div`
@@ -53,6 +55,8 @@ const MenuItem = styled.div`
   margin-left: 25px;
 `;
 const Navbar = () => {
+
+  const quantity = useSelector(state => state.cart.quantity)
   return (
     <Container>
       <Wrapper>
@@ -64,13 +68,13 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>Jeno</Logo>
+          <Logo>Jeno Electronic Market</Logo>
         </Center>
         <Right>
           <Link to = '/register'><MenuItem>REGISTER</MenuItem></Link>
           <Link to = '/login'><MenuItem>SIGN IN</MenuItem></Link>
           <MenuItem>
-            <Badge badgeContent={4} color="primary">
+            <Badge badgeContent={quantity} color="primary">
               <ShoppingCartOutlined />
             </Badge>
           </MenuItem>

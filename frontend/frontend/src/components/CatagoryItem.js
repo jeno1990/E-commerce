@@ -41,13 +41,15 @@ const Image = styled.img`
 const CatagoryItem = ({ item }) => {
   return (
     <Container>
-      <Link to={`/products/${item.cat}`} >
+      
         <Image src={item.img} />
         <Info>
-          <Title>{item.title}</Title>
-          <Button>SHOP NOW</Button>
+          <Link to={`/products/${item.cat}`} style={{textDecoration:'none'}}>
+            <Title>{item.title}</Title>
+            <Button>SHOP NOW</Button>
+          </Link>
         </Info>
-      </Link>
+      
     </Container>
   );
 };

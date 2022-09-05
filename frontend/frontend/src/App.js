@@ -15,7 +15,7 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const user = false;
+  const user = true;
   return (
     <div className="App">
       <Router>
@@ -28,7 +28,7 @@ function App() {
           />
           <Route
             path="/product/:id"
-            element={user ? <Navigate to="/" /> : <Product />}
+            element={<Product />}
           />
           <Route exact path="/products/:product" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} />

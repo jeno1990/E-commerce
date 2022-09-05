@@ -2,8 +2,6 @@ import {
     CallRounded,
   Facebook,
   Instagram,
-  LocalActivity,
-  LocationOffRounded,
   LocationOnRounded,
   MailRounded,
   Pinterest,

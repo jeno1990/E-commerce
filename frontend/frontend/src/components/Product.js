@@ -4,7 +4,7 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 const Info = styled.div`
   opacity: 0;
   width: 100px;
@@ -24,7 +24,7 @@ const Info = styled.div`
 const Container = styled.div`
   height: 350px;
   width: 280px;
-  margin: 5px;
+  margin: 5px; 
   display: flex;
   background-color: #f5fbf5;
   align-items: center;
@@ -66,23 +66,29 @@ const Circle = styled.div`
   background-color: white;
   position: absolute;
 `;
-const Product = ({ product }) => {
+const Product = ({ product , key }) => {
+
+
+
   return (
     <Container>
-      <Circle>
-        <Image src={product.img} />
-        <Info>
-          <Icon>
-            <ShoppingCartOutlined />
-          </Icon>
-          <Icon>
-            <SearchOutlined />
-          </Icon>
-          <Icon>
-            <FavoriteBorderOutlined />
-          </Icon>
-        </Info>
-      </Circle>
+        <Circle>
+          <Link to={`/product/${product._id}`} style={{textDecoration:'none'}}>
+            <Image src={product.img} />
+          </Link>
+          <Info>
+            <Icon>
+              <ShoppingCartOutlined />
+            </Icon>
+            <Icon>
+              <SearchOutlined />
+            </Icon>
+            <Icon>
+              <FavoriteBorderOutlined />
+            </Icon>
+          </Info>
+        </Circle>
+     
     </Container>
   );
 };

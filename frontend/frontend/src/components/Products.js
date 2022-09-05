@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 // import { ProductList } from "./../items/products";
+// import { pubReq } from "../requests";
 import Product from "./Product";
 import axios from "axios";
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 0 40px;
+  justify-content: center;
 `;
 const Products = ({catagory, filter, sort}) => {
 
@@ -36,21 +38,29 @@ const Products = ({catagory, filter, sort}) => {
       catagory &&
         setFilteredProducts(
           ProductL.filter(function(item){
-            return filter.color || filter.size ? (item.color === filter.color) && (item.size===filter.size): true
+            return filter.color && !filter.size 
+            ? (item.color === filter.color) 
+            : !filter.color && filter.size 
+              ? (item.size ===filter.size) 
+              : filter.color && filter.size 
+                ? (item.size===filter.size && item.color===filter.color) 
+                : true 
           })
-        );
-        // console.log(filter)
-        // console.log("---------------------filtering use effect (products.js)-----------")
+        )
     },
     [ ProductL, catagory, filter ]
   );
-  // console.log("filtered")
-  // console.log( FilteredProducts)
+
   return (
     <Container>
-      {FilteredProducts.map((product) => (
+      {catagory 
+      ? FilteredProducts.map((product) => (
+          <Product product={product} key={product.id} />
+        ))
+      : ProductL.slice(0,8).map((product) => (
         <Product product={product} key={product.id} />
-      ))}
+         ))
+      }
     </Container>
   );
 };

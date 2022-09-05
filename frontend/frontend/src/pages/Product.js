@@ -1,8 +1,12 @@
+import { useEffect,useState } from "react"
 import styled from "styled-components"
 import Announcment from "../components/Announcment"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import Newsletter from "../components/Newsletter"
+import { pubReq } from "../requests"
+import { useDispatch } from "react-redux"
+import { addProduct } from "../redux/cartRedux"
 
 const Container = styled.div`
     
@@ -85,6 +89,7 @@ const Change = styled.span`
     font-size: 30px;
     font-weight: 900;
     margin: 0 10px;
+    cursor:pointer;
 `
 
 const Amount = styled.span`
@@ -107,29 +112,58 @@ const Button = styled.button`
     font-weight: 500;
 `
 const Product = () => {
+    
+  const id = window.location.pathname.split("/")[2]
+  const [product , setProduct] = useState({}) 
+  const [quantity , setQuantity]=useState(1)
+ 
+  const dispatch = useDispatch()
+
+  const increaseQuantity = ()=>{
+    setQuantity(quantity+1) 
+  }
+
+  const decreaseQuantity = ()=>{
+    quantity > 0 ? setQuantity(quantity-1): setQuantity(0)
+  }
+
+  const updateCart = () =>{
+    dispatch(addProduct({product , quantity ,price: product.price*quantity}))
+  }
+
+  useEffect(()=>{
+    const getProduct = async ()=>{
+        try {
+            const res = await pubReq.get('products/getproduct/'+id)
+            console.log(res.data)
+            setProduct(res.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    getProduct()
+  },[id]);  
   return (
     <Container>
         <Navbar />
         <Announcment />
         <Body>
             <Left>
-                <Image src="https://i.ibb.co/cXFnLLV/3.png" />
+                <Image src={product.img} />
             </Left>
             <Right>
-                <Title>Red Cotton Dress</Title>
-                <Desc>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic.</Desc>
-                <Price>$30</Price>
+                <Title>{product.title}</Title>
+                <Desc>{product.desc}</Desc>
+                <Price>{product.Price}</Price>
                 <Info>
                     <Color>
                         Color
-                        <Circle color="red"></Circle>
-                        <Circle color="yellow"></Circle>
-                        <Circle color="green"></Circle>
+                        <Circle color={product.color}></Circle>
                     </Color>
                     <Size>
                         Size
                         <Select>
-                            <Options>XS</Options>
+                            <Options>{product.size}</Options>
                             <Options>S</Options>
                             <Options>M</Options>
                             <Options>X</Options>
@@ -139,10 +173,10 @@ const Product = () => {
                     </Size>
                 </Info>
                 <Add>
-                    <Change>-</Change>
-                    <Amount>3</Amount>
-                    <Change>+</Change>
-                    <Button>Add to Cart</Button>
+                    <Change onClick={decreaseQuantity}>-</Change>
+                    <Amount>{quantity}</Amount>
+                    <Change onClick={increaseQuantity}>+</Change>
+                    <Button onClick={updateCart}>Add to Cart</Button>
                 </Add>
                 
             </Right>

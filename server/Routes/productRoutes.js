@@ -47,6 +47,7 @@ route.post("/deleteproduct/:id", middleware.VerfyAdmin, async (req, res) => {
 
 //Get product
 route.get("/getproduct/:id", async (req, res) => {
+  // console.log('--------------test----------')
   const id = req.params["id"];
   try {
     const product = await productDatabase.getProduct(id);
